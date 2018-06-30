@@ -23,8 +23,6 @@ socket.on('connect', function () {
         if (err) {
             alert(err);
             window.location.href = '/';
-        } else {
-            console.log('No error');
         }
     });
 });
@@ -75,7 +73,6 @@ jQuery('#message-form').on('submit', function (e) {
     let messageTextbox = jQuery('[name=message]');
 
     socket.emit('createMessage', {
-        from: 'user',
         text: messageTextbox.val()
     }, function () {
         messageTextbox.val('');
