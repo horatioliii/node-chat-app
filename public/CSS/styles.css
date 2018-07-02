@@ -157,12 +157,30 @@
   .message {
     padding: 10px;
   }
+
+  .message-sender {
+    padding: 10px;
+    text-align: right;
+  }
   
+  .message-sender__title {
+    margin-bottom: 5px;
+  }
+
+  .message-sender__title h4 {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  .message-sender__title span {
+    color: #999;
+  }
+
   .message__title {
     display: flex;
     margin-bottom: 5px;
   }
-  
+
   .message__title h4 {
     font-weight: 600;
     margin-right: 10px;
@@ -171,7 +189,7 @@
   .message__title span {
     color: #999;
   }
-  
+
   @media (max-width: 600px) {
     * {
       font-size: 1rem;

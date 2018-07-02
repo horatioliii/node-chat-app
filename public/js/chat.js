@@ -43,15 +43,28 @@ socket.on('updateUserList', function (users) {
 
 socket.on('newMessage', function (message) {
     let formattedTime = moment(message.createdAt).format('h:mm a');
+    let params = jQuery.deparam(window.location.search);
     let template = jQuery('#message-template').html();
-    let html = Mustache.render(template, {
-        text: message.text,
-        from: message.from,
-        createdAt: formattedTime
-    });
+    let senderTemplate = jQuery('#message-sender-template').html();
+    if (message.from === params.name) {
+        let html = Mustache.render(senderTemplate, {
+            text: message.text,
+            from: message.from,
+            createdAt: formattedTime
+        });
 
-    jQuery('#messages').append(html);
-    scrollToBottom();
+        jQuery('#messages').append(html);
+        scrollToBottom();
+    } else {
+        let html = Mustache.render(template, {
+            text: message.text,
+            from: message.from,
+            createdAt: formattedTime
+        });
+
+        jQuery('#messages').append(html);
+        scrollToBottom();
+    }
 });
 
 socket.on('newLocationMessage', function (message) {
