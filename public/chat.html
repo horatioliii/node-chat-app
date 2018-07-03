@@ -66,6 +66,20 @@
             </li>
         </script>
 
+        <script id="location-message-sender-template" type="text/template">
+            <li class="message-sender">
+                <div class="message-sender__title">
+                    <h4>{{from}}</h4>
+                </div>
+                <span>{{createdAt}}</span>
+                <div class="message__body">
+                    <p>
+                        <a href="{{url}}" target="_blank">My current location</a>
+                    </p>
+                </div>
+            </li>
+        </script>
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/libs/jquery-3.3.1.min.js"></script>
         <script src="js/libs/moment.js"></script>

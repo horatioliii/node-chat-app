@@ -79,15 +79,26 @@ socket.on('newMessage', function (message) {
 
 socket.on('newLocationMessage', function (message) {
     let formattedTime = moment(message.createdAt).format('h:mm a');
+    let params = jQuery.deparam(window.location.search);
     let template = jQuery('#location-message-template').html();
-    let html = Mustache.render(template, {
-        url: message.url,
-        from: message.from,
-        createdAt: formattedTime
-    });
-
-    jQuery('#messages').append(html);
-    scrollToBottom();
+    let senderTemplate = jQuery('#location-message-sender-template').html();
+    if (message.from === params.name) {
+        let html = Mustache.render(senderTemplate, {
+            url: message.url,
+            from: message.from,
+            createdAt: formattedTime
+        });
+        jQuery('#messages').append(html);
+        scrollToBottom();
+    } else {
+        let html = Mustache.render(template, {
+            url: message.url,
+            from: message.from,
+            createdAt: formattedTime
+        });
+        jQuery('#messages').append(html);
+        scrollToBottom();
+    }
 });
 
 jQuery('#message-form').on('submit', function (e) {
