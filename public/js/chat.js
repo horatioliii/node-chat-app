@@ -16,6 +16,15 @@ function scrollToBottom () {
     }
 };
 
+function messageChecker (message) {
+    const keywords = ['aima', 'Aima', 'Emma', 'emma', 'yiwei', 'Yi Wei', 'yi wei', 'anjila', '安吉拉', 'gyq', 'GYQ', 'Gyq'];
+    const keywordsLen = keywords.length;
+    for (let i=0; i < keywordsLen; i++) {
+        message = message.replace(keywords[i], keywords[i].substring(0, 1).concat('**').concat(keywords[i].slice(-1)));
+    }
+    return message;
+}
+
 socket.on('connect', function () {
     let params = jQuery.deparam(window.location.search);
 
@@ -42,13 +51,14 @@ socket.on('updateUserList', function (users) {
 });
 
 socket.on('newMessage', function (message) {
+    let cleanMessage = messageChecker(message.text);
     let formattedTime = moment(message.createdAt).format('h:mm a');
     let params = jQuery.deparam(window.location.search);
     let template = jQuery('#message-template').html();
     let senderTemplate = jQuery('#message-sender-template').html();
     if (message.from === params.name) {
         let html = Mustache.render(senderTemplate, {
-            text: message.text,
+            text: cleanMessage,
             from: message.from,
             createdAt: formattedTime
         });
